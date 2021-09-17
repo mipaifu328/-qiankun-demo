@@ -4,10 +4,11 @@
  * @Author: mipaifu328
  * @Date: 2021-09-16 09:28:41
  * @LastEditors: mipaifu328
- * @LastEditTime: 2021-09-16 16:34:54
+ * @LastEditTime: 2021-09-17 11:02:46
  */
 import { createApp } from "vue";
 import App from "./App.vue";
+import store from "./store";
 
 import { registerMicroApps, setDefaultMountApp, start } from "qiankun";
 let apps = [
@@ -18,9 +19,7 @@ let apps = [
     activeRule: "/app-vue",
     props: {
       data: "msg from vue",
-      mainMethods: function() {
-        console.log("from main", App);
-      },
+      getGlobalState: store.getGlobalState,
     },
   },
   {

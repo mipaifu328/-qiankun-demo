@@ -4,11 +4,12 @@
  * @Author: mipaifu328
  * @Date: 2021-09-16 09:28:41
  * @LastEditors: mipaifu328
- * @LastEditTime: 2021-09-16 15:22:32
+ * @LastEditTime: 2021-09-17 15:12:46
 -->
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Vue 主程序页面" />
+  <div>user.name = {{ user.name }} - <button @click="change">张三</button></div>
   <ul>
     <li @click="onChangePage('/app-vue', $event)">vue微服务</li>
     <li @click="onChangePage('/app-react', $event)">react微服务</li>
@@ -18,6 +19,8 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
+import store from "./store";
+import { computed } from "vue";
 
 export default {
   name: "App",
@@ -34,6 +37,23 @@ export default {
     routerGO(url = "/", title, data = {}) {
       window.history.pushState(data, title, url);
     },
+  },
+  setup() {
+    const user = computed(() => {
+      console.log("------");
+      return store.getGlobalState().user;
+    });
+    const change = () => {
+      store.setGlobalState({
+        user: {
+          name: "张三",
+        },
+      });
+    };
+    return {
+      user,
+      change,
+    };
   },
 };
 </script>
